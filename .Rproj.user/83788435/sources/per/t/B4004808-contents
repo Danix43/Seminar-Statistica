@@ -1,0 +1,87 @@
+# Comenzi de bază în R
+
+# Folosind diez ("#") putem scrie comentarii în script care nu sunt percepute ca fiind comenzi.
+
+# În continuare vom scrie comenzi si vom afișa rezultatele în Consolă folosind butonul "Run"
+
+"Hello, World!" #Această este prima comandă, o simplă afișare
+
+#Obiecte in R
+
+#Construim obiecte
+a <- 5 #creăm variabila a și îi atribuim valoarea 5
+b <- c(1,1,1,1,1,2,2,2,3,3,5,5) 
+d <- c("Ana", "Maria", "Madalina", "Cristina") 
+
+#Afisam obiecte
+a
+b 
+d
+
+#Functii in R
+str(b) #interogăm structura obiectului b
+b <-as.factor(b) #transformăm în variabilă categorială
+str(b) 
+
+?summary #deschidem documentatia unei functii
+summary (b) 
+
+#Reprezentari grafice
+counts <- table(b) #vector cu frecventele din  b, pe fiecare categorie
+barplot(counts) #reprezentare grafica a frecventelor din b, pe fiecare categorie
+
+barplot(counts, col="#AF00FF", main="Frecvente", xlab="Label x", ylab="Label y") #adaugam informatie graficului de tipul: titlu, nume OX, nume OY, culori
+?barplot #Interogam functia de plotare pentru a identifica argumente care ajuta la adaugarea informatiei
+
+#Pachete in R
+install.packages("Hmisc") #instalam un pachet
+library(Hmisc) # apelam un pachet
+describe(b) #folosim o functie dintr-un pachet
+
+#Baze de date in R - obiecte dataset
+#Citim diferit formate de date
+saci_de_dormit <- read.csv("~/Desktop/Econometrie/Seminar Econometrie/Seminar 3/Seminar Magda/saci de dormit.csv")
+chocolate <- read_excel("chocolate.xlsx")
+
+#Interogam structura bazelor de date
+str(saci_de_dormit)
+str(chocolate)
+    
+#Sintetizam toate variabilele din baza de date
+summary(saci_de_dormit)
+summary(chocolate)
+
+#Alegem o variabila din fiecare baza de date cu care sa lucram
+#Pentru a apela o singura variabila folosim sintaxa "nume_baza_date + $ + nume_variabila"
+#Semnul "$" este un pointer (o adresa). R-ul intelege:"du-te in baza de date cu numele nume_baza_date si extrage ce gasesti la adresa nume_variabila"
+
+saci_de_dormit$Temperatura
+chocolate$month
+
+#Putem executa comenzi pentru fiecare variabila
+summary (chocolate$month)
+chocolate$month <- as.factor(chocolate$month)
+summary(chocolate$month)
+
+frecvente <-table (chocolate$month)
+barplot(frecvente)
+
+hist(chocolate$sales)
+
+mean(chocolate$sales)
+sd(chocolate$sales)
+
+#Functia regresiei lm()
+
+plot (saci_de_dormit$Pretul ~ saci_de_dormit$Temperatura)
+abline(lm(saci_de_dormit$Pretul ~ saci_de_dormit$Temperatura, data = saci_de_dormit))
+abline(h=mean(saci_de_dormit$Pretul))
+
+regresie <- lm(saci_de_dormit$Pretul ~ saci_de_dormit$Temperatura)
+
+regresie
+
+summary(regresie)
+
+
+\

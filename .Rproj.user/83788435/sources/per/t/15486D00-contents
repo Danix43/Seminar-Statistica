@@ -1,0 +1,6 @@
+#histograma - numarul de studenti si ani de studiu
+lvlEdu = CollegeDistance$education
+
+hist(lvlEdu, main="Histograma anilor de studiu", xlab="Numar de ani de educatie", ylab="Numar de elevi", col="pink", ylim=c(0, 2000))
+
+
